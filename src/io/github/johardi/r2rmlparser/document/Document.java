@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class Document
+public class Document implements IDocument
 {
    private List<TriplesMap> mTriplesMaps;
    private Map<String, String> mPrefixMapper;
@@ -46,6 +46,7 @@ public class Document
       return Collections.unmodifiableMap(mPrefixMapper);
    }
 
+   @Override
    public void accept(IDocumentVisitor visitor)
    {
       visitor.visit(this);
