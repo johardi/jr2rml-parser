@@ -9,7 +9,6 @@ Feature
 Example: Visitor Pattern
 ------------------------
 This example shows you how to utilize the visitor pattern in the API. The handler below will collect string templates specified by `rr:template` attribute in a R2RML document.
-
 ```java
 public class R2RmlDocumentHandler implements IDocumentVisitor, IGraphVisitor, IMappingVisitor
 {
@@ -88,7 +87,6 @@ public class R2RmlDocumentHandler implements IDocumentVisitor, IGraphVisitor, IM
 ```
 
 Next the client code below will use the handler to print the collected template strings to stdout.
-
 ```java
 JR2RmlParser parser = new JR2RmlParse();   
 Document document = parser.parse(getReader("example.ttl"), "http://example.com/ns");
