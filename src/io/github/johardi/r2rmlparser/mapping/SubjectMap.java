@@ -24,6 +24,9 @@ public class SubjectMap extends TermMap implements IMappingBody
       mClassIri = iri;
    }
 
+   /**
+    * Returns the value specified by <code>rr:class</code> property.
+    */
    public String getClassIri()
    {
       return mClassIri;

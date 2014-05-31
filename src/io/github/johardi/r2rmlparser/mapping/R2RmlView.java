@@ -24,6 +24,9 @@ public class R2RmlView implements ITableView
       mSqlString = sqlString;
    }
 
+   /**
+    * Returns the value specified by <code>rr:sqlQuery</code> property.
+    */
    @Override
    public String getSqlQuery()
    {

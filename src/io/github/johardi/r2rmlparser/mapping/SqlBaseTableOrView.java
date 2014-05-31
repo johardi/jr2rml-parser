@@ -24,6 +24,9 @@ public class SqlBaseTableOrView implements ITableView
       mTableOrViewName = tableOrViewName;
    }
 
+   /**
+    * Returns the value specified by <code>rr:tableName</code> property.
+    */
    public String getBaseTable()
    {
       return mTableOrViewName;

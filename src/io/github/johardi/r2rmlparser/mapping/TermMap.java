@@ -43,6 +43,15 @@ public abstract class TermMap
       mType = type;
    }
 
+   /**
+    * Returns one of the following types below. The type specifies the kind of
+    * value returns by <code>getValue()</code> method.
+    * <ul>
+    * <li>{@link CONSTANT_VALUE} - A constant-valued term map, specified by <code>rr:constant</code> property</li>
+    * <li>{@link COLUMN_VALUE} - A column-valued term map, specified by <code>rr:ccolumn</code> property</li>
+    * <li>{@link TEMPLATE_VALUE} - A template-valued term map, specified by <code>rr:template</code> property</li>
+    * </ul>
+    */
    public int getType()
    {
       return mType;
@@ -53,6 +62,9 @@ public abstract class TermMap
       mDatatype = datatype;
    }
 
+   /**
+    * Returns the value specified by <code>rr:datatype</code> property.
+    */
    public String getDatatype()
    {
       return mDatatype;
@@ -63,6 +75,9 @@ public abstract class TermMap
       mLanguage = value;
    }
 
+   /**
+    * Returns the value specified by <code>rr:language</code> property.
+    */
    public String getLanguage()
    {
       return mLanguage;
@@ -73,6 +88,10 @@ public abstract class TermMap
       mValue = value;
    }
 
+   /**
+    * Returns the term map value. Use <code>getType()</code> method to know the
+    * kind of value returned by this method.
+    */
    public String getValue()
    {
       return mValue;

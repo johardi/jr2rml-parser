@@ -29,6 +29,16 @@ public class JR2RmlParser
 {
    private TurtleParser mTurtleParser = new TurtleParser();
 
+   /**
+    * Parses the given R2RML document reader and returns a <code>Document</code> object.
+    * 
+    * @param documentReader
+    *          An input stream that reads R2RML document file.
+    * @param baseIri
+    *          A non-empty base IRI for the document file.
+    * @return A <code>Document</code> object as the parsing result.
+    * @throws JR2RmlParserException when something wrong has happened.
+    */
    public Document parse(Reader documentReader, String baseIri) throws JR2RmlParserException
    {
       try {

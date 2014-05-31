@@ -24,6 +24,12 @@ public class LogicalTable implements IMappingBody
       mTableView = tableView;
    }
 
+   /**
+    * Returns the table view specified by this logical table. The table view can
+    * be a {@link SqlBaseTableOrView} which specified by
+    * <code>rr:tableName</code> property or a {@link R2RmlView} which specified
+    * by <code>rr:sqlQuery</code> property.
+    */
    public ITableView getTableView()
    {
       return mTableView;

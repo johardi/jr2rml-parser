@@ -25,6 +25,9 @@ public class JoinCondition
       mChildColumn = name;
    }
 
+   /**
+    * Returns the value specified by <code>rr:child</code> property.
+    */
    public String getChildColumn()
    {
       return mChildColumn;
@@ -35,6 +38,9 @@ public class JoinCondition
       mParentColumn = name;
    }
 
+   /**
+    * Returns the value specified by <code>rr:parent</code> property.
+    */
    public String getParentColumn()
    {
       return mParentColumn;

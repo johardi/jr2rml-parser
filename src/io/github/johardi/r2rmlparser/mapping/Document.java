@@ -30,11 +30,17 @@ public class Document
       mPrefixMapper = prefixMapper;
    }
 
+   /**
+    * Returns a list of triples maps found in the input R2RML document.
+    */
    public List<TriplesMap> getTriplesMaps()
    {
       return Collections.unmodifiableList(mTriplesMaps);
    }
 
+   /**
+    * Returns a prefix mapper that maps prefix to its IRI.
+    */
    public Map<String, String> getPrefixMapper()
    {
       return Collections.unmodifiableMap(mPrefixMapper);

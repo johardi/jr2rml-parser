@@ -31,6 +31,9 @@ public class TriplesMap implements IGraph
       mTriplesMapId = id;
    }
 
+   /**
+    * Returns the triples map ID.
+    */
    public String getId()
    {
       return mTriplesMapId;
@@ -41,6 +44,9 @@ public class TriplesMap implements IGraph
       mLogicalTable = logicalTable;
    }
 
+   /**
+    * Returns {@link LogicalTable} object specified by <code>rr:logicalTable</code> property.
+    */
    public LogicalTable getLogicalTable()
    {
       return mLogicalTable;
@@ -51,6 +57,9 @@ public class TriplesMap implements IGraph
       mSubjectMap = map;
    }
 
+   /**
+    * Returns {@link SubjectMap} object specified by <code>rr:subjectMap</code> property.
+    */
    public SubjectMap getSubjectMap()
    {
       return mSubjectMap;
@@ -64,6 +73,10 @@ public class TriplesMap implements IGraph
       mPredicateObjectMaps.add(map);
    }
 
+   /**
+    * Returns a list of {@link PredicateObjectMap} objects specified by
+    * <code>rr:predicateObjectMap</code> property.
+    */
    public List<PredicateObjectMap> getPredicateObjectMaps()
    {
       return mPredicateObjectMaps;
