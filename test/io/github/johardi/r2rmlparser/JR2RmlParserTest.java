@@ -29,6 +29,7 @@ import org.junit.Test;
 import io.github.johardi.r2rmlparser.exception.JR2RmlParserException;
 import io.github.johardi.r2rmlparser.mapping.Document;
 import io.github.johardi.r2rmlparser.mapping.ObjectMap;
+import io.github.johardi.r2rmlparser.mapping.PredicateObjectMap;
 import io.github.johardi.r2rmlparser.mapping.TriplesMap;
 
 public class JR2RmlParserTest
@@ -93,33 +94,35 @@ public class JR2RmlParserTest
       checkResult(triplesMap3.getSubjectMap().getValue(), "http://data.example.com/department/{DEPTNO}");
       
       checkResult(triplesMap3.getPredicateObjectMaps().size(), 4);
-      checkResult(triplesMap3.getPredicateObjectMaps().get(0).getPredicateMap().getType(), 1);
-      checkResult(triplesMap3.getPredicateObjectMaps().get(0).getPredicateMap().getValue(), "http://example.com/ns#staff");
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(0).getObjectMap()).getType(), 2);
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(0).getObjectMap()).getValue(), "STAFF");
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(0).getObjectMap()).getDatatype(), "http://www.w3.org/2001/XMLSchema#int");
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(0).getObjectMap()).getLanguage(), null);
       
-      checkResult(triplesMap3.getPredicateObjectMaps().get(1).getPredicateMap().getType(), 1);
-      checkResult(triplesMap3.getPredicateObjectMaps().get(1).getPredicateMap().getValue(), "http://example.com/ns#description");
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(1).getObjectMap()).getType(), 2);
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(1).getObjectMap()).getValue(), "DESC");
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(1).getObjectMap()).getDatatype(), null);
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(1).getObjectMap()).getLanguage(), "en-us");
-      
-      checkResult(triplesMap3.getPredicateObjectMaps().get(2).getPredicateMap().getType(), 1);
-      checkResult(triplesMap3.getPredicateObjectMaps().get(2).getPredicateMap().getValue(), "http://example.com/ns#name");
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(2).getObjectMap()).getType(), 2);
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(2).getObjectMap()).getValue(), "DNAME");
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(2).getObjectMap()).getDatatype(), null);
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(2).getObjectMap()).getLanguage(), null);
-      
-      checkResult(triplesMap3.getPredicateObjectMaps().get(3).getPredicateMap().getType(), 1);
-      checkResult(triplesMap3.getPredicateObjectMaps().get(3).getPredicateMap().getValue(), "http://example.com/ns#location");
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(3).getObjectMap()).getType(), 2);
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(3).getObjectMap()).getValue(), "LOC");
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(3).getObjectMap()).getDatatype(), null);
-      checkResult(((ObjectMap) triplesMap3.getPredicateObjectMaps().get(3).getObjectMap()).getLanguage(), null);
+      for (int i = 0; i < triplesMap3.getPredicateObjectMaps().size(); i++) {
+         PredicateObjectMap pom = triplesMap3.getPredicateObjectMaps().get(i);
+         String predicateName = pom.getPredicateMap().getValue();
+         if (predicateName.equals("http://example.com/ns#staff")) {
+            checkResult(((ObjectMap) pom.getObjectMap()).getType(), 2);
+            checkResult(((ObjectMap) pom.getObjectMap()).getValue(), "STAFF");
+            checkResult(((ObjectMap) pom.getObjectMap()).getDatatype(), "http://www.w3.org/2001/XMLSchema#int");
+            checkResult(((ObjectMap) pom.getObjectMap()).getLanguage(), null);
+         }
+         else if (predicateName.equals("http://example.com/ns#name")) {
+            checkResult(((ObjectMap) pom.getObjectMap()).getType(), 2);
+            checkResult(((ObjectMap) pom.getObjectMap()).getValue(), "DNAME");
+            checkResult(((ObjectMap) pom.getObjectMap()).getDatatype(), null);
+            checkResult(((ObjectMap) pom.getObjectMap()).getLanguage(), null);
+         }
+         else if (predicateName.equals("http://example.com/ns#location")) {
+            checkResult(((ObjectMap) pom.getObjectMap()).getType(), 2);
+            checkResult(((ObjectMap) pom.getObjectMap()).getValue(), "LOC");
+            checkResult(((ObjectMap) pom.getObjectMap()).getDatatype(), null);
+            checkResult(((ObjectMap) pom.getObjectMap()).getLanguage(), null);
+         }
+         else if (predicateName.equals("http://example.com/ns#description")) {
+            checkResult(((ObjectMap) pom.getObjectMap()).getType(), 2);
+            checkResult(((ObjectMap) pom.getObjectMap()).getValue(), "DESC");
+            checkResult(((ObjectMap) pom.getObjectMap()).getDatatype(), null);
+            checkResult(((ObjectMap) pom.getObjectMap()).getLanguage(), "en-us");
+         }
+      }
    }
 
    private Reader getReader(String filePath)
