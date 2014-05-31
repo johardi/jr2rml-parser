@@ -5,38 +5,34 @@ import static org.junit.Assert.assertEquals;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.openrdf.rio.RDFHandlerException;
-import org.openrdf.rio.RDFParseException;
-import org.openrdf.rio.turtle.TurtleParser;
 
+import io.github.johardi.r2rmlparser.exception.JR2RmlParserException;
+import io.github.johardi.r2rmlparser.mapping.Document;
 import io.github.johardi.r2rmlparser.mapping.ObjectMap;
 import io.github.johardi.r2rmlparser.mapping.TriplesMap;
 
-public class R2RmlParserTest
+public class JR2RmlParserTest
 {
-   private TurtleParser mParser = new TurtleParser();
-   private R2RmlHandler mHandler = null;
+   private JR2RmlParser mParser;
 
    @Before
    public void setUp() throws Exception
    {
-      mHandler = new R2RmlHandler();
-      mParser.setRDFHandler(mHandler);
+      mParser = new JR2RmlParser();
    }
 
    @Test
-   public void testParser() throws RDFParseException, RDFHandlerException, IOException
+   public void testParser() throws JR2RmlParserException
    {
       String filePath = "res/example.ttl";
       
-      mParser.parse(getReader(filePath), "http://example.com/ns");
-      List<TriplesMap> mappingList = mHandler.getTriplesMaps();
+      Document document = mParser.parse(getReader(filePath), "http://example.com/ns");
+      List<TriplesMap> mappingList = document.getTriplesMaps();
       
       assertEquals(3, mappingList.size());
       
