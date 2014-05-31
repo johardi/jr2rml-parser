@@ -46,6 +46,12 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
    }
 
    @Override
+   public void handleNamespace(String prefix, String uri)
+   {
+      mPrefixMapper.put(prefix, uri);
+   }
+
+   @Override
    public void startRDF() throws RDFHandlerException
    {
       mPropertyGraphs = new MultiMap<String, PropertyGraph>(true);
