@@ -6,9 +6,9 @@ Feature
 * Using visitor pattern to allow easy integration with your existing code.
 * Open source under Apache License 2.0
 
-Example
--------
-This example shows you how to utilize the visitor pattern. The handler below will collect string templates specified by `rr:template` attribute in a R2RML document.
+Example: Visitor Pattern
+------------------------
+This example shows you how to utilize the visitor pattern in the API. The handler below will collect string templates specified by `rr:template` attribute in a R2RML document.
 
 ```java
 public class R2RmlDocumentHandler implements IDocumentVisitor, IGraphVisitor, IMappingVisitor
@@ -84,15 +84,14 @@ public class R2RmlDocumentHandler implements IDocumentVisitor, IGraphVisitor, IM
    {
       // NO-OP
    }
+}
 ```
 
 Next the client code below will use the handler to print the collected template strings to stdout.
 
 ```java
-String filePath = "res/example.ttl";
-
 JR2RmlParser parser = new JR2RmlParse();   
-Document document = parser.parse(getReader(filePath), "http://example.com/ns");
+Document document = parser.parse(getReader("example.ttl"), "http://example.com/ns");
 R2RmlDocumentHandler documentHandler = new R2RmlDocumentHandler();
 document.accept(documentHandler);
    
