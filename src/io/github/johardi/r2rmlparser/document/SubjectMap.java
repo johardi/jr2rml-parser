@@ -13,31 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.johardi.r2rmlparser.mapping;
+package io.github.johardi.r2rmlparser.document;
 
-public class PredicateObjectMap implements IMappingBody
+public class SubjectMap extends TermMap implements IMappingBody
 {
-   private PredicateMap mPredicateMap;
-   private IObjectMap mObjectMap;
+   private String mClassIri;
 
-   public void setPredicateMap(PredicateMap predicateMap)
+   public void setClassIri(String iri)
    {
-      mPredicateMap = predicateMap;
+      mClassIri = iri;
    }
 
-   public PredicateMap getPredicateMap()
+   /**
+    * Returns the value specified by <code>rr:class</code> property.
+    */
+   public String getClassIri()
    {
-      return mPredicateMap;
-   }
-
-   public void setObjectMap(IObjectMap objectMap)
-   {
-      mObjectMap = objectMap;
-   }
-
-   public IObjectMap getObjectMap()
-   {
-      return mObjectMap;
+      return mClassIri;
    }
 
    @Override

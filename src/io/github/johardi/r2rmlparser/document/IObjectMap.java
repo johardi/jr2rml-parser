@@ -13,28 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.johardi.r2rmlparser.mapping;
+package io.github.johardi.r2rmlparser.document;
 
-public class SqlBaseTableOrView implements ITableView
+public interface IObjectMap extends IMappingBody
 {
-   private String mTableOrViewName;
-
-   public void setBaseTable(String tableOrViewName)
-   {
-      mTableOrViewName = tableOrViewName;
-   }
-
-   /**
-    * Returns the value specified by <code>rr:tableName</code> property.
-    */
-   public String getBaseTable()
-   {
-      return mTableOrViewName;
-   }
-
-   @Override
-   public String getSqlQuery()
-   {
-      return String.format("SELECT * FROM \"%s\"", mTableOrViewName);
-   }
+   // NO-OP
 }

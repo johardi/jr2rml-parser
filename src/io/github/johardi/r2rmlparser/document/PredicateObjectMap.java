@@ -13,9 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.johardi.r2rmlparser.mapping;
+package io.github.johardi.r2rmlparser.document;
 
-public interface IDocumentVisitor
+public class PredicateObjectMap implements IMappingBody
 {
-   void visit(Document document);
+   private PredicateMap mPredicateMap;
+   private IObjectMap mObjectMap;
+
+   public void setPredicateMap(PredicateMap predicateMap)
+   {
+      mPredicateMap = predicateMap;
+   }
+
+   public PredicateMap getPredicateMap()
+   {
+      return mPredicateMap;
+   }
+
+   public void setObjectMap(IObjectMap objectMap)
+   {
+      mObjectMap = objectMap;
+   }
+
+   public IObjectMap getObjectMap()
+   {
+      return mObjectMap;
+   }
+
+   @Override
+   public void accept(IMappingVisitor visitor)
+   {
+      visitor.visit(this);
+   }
 }

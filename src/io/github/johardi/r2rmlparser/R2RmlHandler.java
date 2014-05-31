@@ -28,17 +28,17 @@ import org.openrdf.model.URI;
 import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.helpers.RDFHandlerBase;
 
+import io.github.johardi.r2rmlparser.document.LogicalTable;
+import io.github.johardi.r2rmlparser.document.ObjectMap;
+import io.github.johardi.r2rmlparser.document.PredicateMap;
+import io.github.johardi.r2rmlparser.document.PredicateObjectMap;
+import io.github.johardi.r2rmlparser.document.R2RmlView;
+import io.github.johardi.r2rmlparser.document.SqlBaseTableOrView;
+import io.github.johardi.r2rmlparser.document.SubjectMap;
+import io.github.johardi.r2rmlparser.document.TermMap;
+import io.github.johardi.r2rmlparser.document.TriplesMap;
 import io.github.johardi.r2rmlparser.exception.InvalidPropertyAttributeException;
 import io.github.johardi.r2rmlparser.exception.UnsupportedPropertyException;
-import io.github.johardi.r2rmlparser.mapping.LogicalTable;
-import io.github.johardi.r2rmlparser.mapping.ObjectMap;
-import io.github.johardi.r2rmlparser.mapping.PredicateMap;
-import io.github.johardi.r2rmlparser.mapping.PredicateObjectMap;
-import io.github.johardi.r2rmlparser.mapping.R2RmlView;
-import io.github.johardi.r2rmlparser.mapping.SqlBaseTableOrView;
-import io.github.johardi.r2rmlparser.mapping.SubjectMap;
-import io.github.johardi.r2rmlparser.mapping.TermMap;
-import io.github.johardi.r2rmlparser.mapping.TriplesMap;
 import io.github.johardi.r2rmlparser.util.MultiMap;
 
 public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants

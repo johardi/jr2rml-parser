@@ -22,8 +22,8 @@ import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.RDFParseException;
 import org.openrdf.rio.turtle.TurtleParser;
 
+import io.github.johardi.r2rmlparser.document.Document;
 import io.github.johardi.r2rmlparser.exception.JR2RmlParserException;
-import io.github.johardi.r2rmlparser.mapping.Document;
 
 public class JR2RmlParser
 {

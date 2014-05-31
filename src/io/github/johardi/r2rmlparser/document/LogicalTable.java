@@ -13,23 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.johardi.r2rmlparser.mapping;
+package io.github.johardi.r2rmlparser.document;
 
-public class R2RmlView implements ITableView
+public class LogicalTable implements IMappingBody
 {
-   private String mSqlString;
+   private ITableView mTableView;
 
-   public void setSqlString(String sqlString)
+   public void setTableView(ITableView tableView)
    {
-      mSqlString = sqlString;
+      mTableView = tableView;
    }
 
    /**
-    * Returns the value specified by <code>rr:sqlQuery</code> property.
+    * Returns the table view specified by this logical table. The table view can
+    * be a {@link SqlBaseTableOrView} which specified by
+    * <code>rr:tableName</code> property or a {@link R2RmlView} which specified
+    * by <code>rr:sqlQuery</code> property.
     */
-   @Override
-   public String getSqlQuery()
+   public ITableView getTableView()
    {
-      return mSqlString;
+      return mTableView;
+   }
+
+   @Override
+   public void accept(IMappingVisitor visitor)
+   {
+      visitor.visit(this);
    }
 }

@@ -24,8 +24,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import io.github.johardi.r2rmlparser.document.Document;
 import io.github.johardi.r2rmlparser.exception.JR2RmlParserException;
-import io.github.johardi.r2rmlparser.mapping.Document;
 
 public class JR2RmlVisitorPatternTest
 {

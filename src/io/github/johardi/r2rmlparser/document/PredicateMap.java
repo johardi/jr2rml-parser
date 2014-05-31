@@ -13,9 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.johardi.r2rmlparser.mapping;
+package io.github.johardi.r2rmlparser.document;
 
-public interface IMappingBody
+public class PredicateMap extends TermMap implements IMappingBody
 {
-   public void accept(IMappingVisitor visitor);
+   @Override
+   public void accept(IMappingVisitor visitor)
+   {
+      visitor.visit(this);
+   }
 }

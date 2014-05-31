@@ -13,36 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.johardi.r2rmlparser.mapping;
+package io.github.johardi.r2rmlparser.document;
 
-public class RefObjectMap implements IObjectMap
+public class R2RmlView implements ITableView
 {
-   private String mParentTriplesMap;
-   private JoinCondition mJoinCondition;
+   private String mSqlString;
 
-   public void setParentTriplesMap(String refTriplesMap)
+   public void setSqlString(String sqlString)
    {
-      mParentTriplesMap = refTriplesMap;
+      mSqlString = sqlString;
    }
 
-   public String getParentTriplesMap()
-   {
-      return mParentTriplesMap;
-   }
-
-   public void setJoinCondition(JoinCondition join)
-   {
-      mJoinCondition = join;
-   }
-
-   public JoinCondition getJoinCondition()
-   {
-      return mJoinCondition;
-   }
-
+   /**
+    * Returns the value specified by <code>rr:sqlQuery</code> property.
+    */
    @Override
-   public void accept(IMappingVisitor visitor)
+   public String getSqlQuery()
    {
-      visitor.visit(this);
+      return mSqlString;
    }
 }

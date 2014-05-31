@@ -26,11 +26,11 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import io.github.johardi.r2rmlparser.document.Document;
+import io.github.johardi.r2rmlparser.document.ObjectMap;
+import io.github.johardi.r2rmlparser.document.PredicateObjectMap;
+import io.github.johardi.r2rmlparser.document.TriplesMap;
 import io.github.johardi.r2rmlparser.exception.JR2RmlParserException;
-import io.github.johardi.r2rmlparser.mapping.Document;
-import io.github.johardi.r2rmlparser.mapping.ObjectMap;
-import io.github.johardi.r2rmlparser.mapping.PredicateObjectMap;
-import io.github.johardi.r2rmlparser.mapping.TriplesMap;
 
 public class JR2RmlParserTest
 {

@@ -13,19 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.johardi.r2rmlparser.mapping;
+package io.github.johardi.r2rmlparser.document;
 
-public interface IMappingVisitor
+public interface IDocumentVisitor
 {
-   void visit(LogicalTable arg);
-
-   void visit(SubjectMap arg);
-
-   void visit(PredicateObjectMap arg);
-
-   void visit(PredicateMap arg);
-
-   void visit(ObjectMap arg);
-
-   void visit(RefObjectMap arg);
+   void visit(Document document);
 }

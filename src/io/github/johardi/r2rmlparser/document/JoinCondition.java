@@ -13,31 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.johardi.r2rmlparser.mapping;
+package io.github.johardi.r2rmlparser.document;
 
-public class LogicalTable implements IMappingBody
+public class JoinCondition
 {
-   private ITableView mTableView;
+   private String mChildColumn;
+   private String mParentColumn;
 
-   public void setTableView(ITableView tableView)
+   public void setChildColumn(String name)
    {
-      mTableView = tableView;
+      mChildColumn = name;
    }
 
    /**
-    * Returns the table view specified by this logical table. The table view can
-    * be a {@link SqlBaseTableOrView} which specified by
-    * <code>rr:tableName</code> property or a {@link R2RmlView} which specified
-    * by <code>rr:sqlQuery</code> property.
+    * Returns the value specified by <code>rr:child</code> property.
     */
-   public ITableView getTableView()
+   public String getChildColumn()
    {
-      return mTableView;
+      return mChildColumn;
    }
 
-   @Override
-   public void accept(IMappingVisitor visitor)
+   public void setParentColumn(String name)
    {
-      visitor.visit(this);
+      mParentColumn = name;
+   }
+
+   /**
+    * Returns the value specified by <code>rr:parent</code> property.
+    */
+   public String getParentColumn()
+   {
+      return mParentColumn;
    }
 }
