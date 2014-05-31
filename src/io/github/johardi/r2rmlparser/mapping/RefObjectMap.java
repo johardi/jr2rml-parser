@@ -1,6 +1,6 @@
 package io.github.johardi.r2rmlparser.mapping;
 
-public class RefObjectMap implements IMappingBody, IObjectMap
+public class RefObjectMap implements IObjectMap
 {
    private String mParentTriplesMap;
    private JoinCondition mJoinCondition;

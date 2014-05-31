@@ -1,6 +1,6 @@
 package io.github.johardi.r2rmlparser.mapping;
 
-public class ObjectMap extends TermMap implements IMappingBody, IObjectMap
+public class ObjectMap extends TermMap implements IObjectMap
 {
    @Override
    public void accept(IMappingVisitor visitor)
