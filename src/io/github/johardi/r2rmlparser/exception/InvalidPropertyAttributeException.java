@@ -2,7 +2,7 @@ package io.github.johardi.r2rmlparser.exception;
 
 import io.github.johardi.r2rmlparser.util.StringUtils;
 
-public class InvalidPropertyAttributeException extends R2RmlParserRuntimeException
+public class InvalidPropertyAttributeException extends JR2RmlParserRuntimeException
 {
    private static final long serialVersionUID = 1681949L;
 

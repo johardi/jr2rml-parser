@@ -1,25 +1,25 @@
 package io.github.johardi.r2rmlparser.exception;
 
-public class R2RmlParserRuntimeException extends RuntimeException
+public class JR2RmlParserRuntimeException extends RuntimeException
 {
    private static final long serialVersionUID = 1681949L;
 
-   public R2RmlParserRuntimeException()
+   public JR2RmlParserRuntimeException()
    {
       super();
    }
 
-   public R2RmlParserRuntimeException(String message)
+   public JR2RmlParserRuntimeException(String message)
    {
       super(message);
    }
 
-   public R2RmlParserRuntimeException(String message, Throwable cause)
+   public JR2RmlParserRuntimeException(String message, Throwable cause)
    {
       super(message, cause);
    }
 
-   public R2RmlParserRuntimeException(Throwable cause)
+   public JR2RmlParserRuntimeException(Throwable cause)
    {
       super(cause);
    }
