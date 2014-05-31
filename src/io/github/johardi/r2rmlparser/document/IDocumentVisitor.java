@@ -15,7 +15,9 @@
  */
 package io.github.johardi.r2rmlparser.document;
 
+import io.github.johardi.r2rmlparser.R2RmlDocument;
+
 public interface IDocumentVisitor
 {
-   void visit(Document document);
+   void visit(R2RmlDocument document);
 }

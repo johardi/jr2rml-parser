@@ -22,7 +22,6 @@ import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.RDFParseException;
 import org.openrdf.rio.turtle.TurtleParser;
 
-import io.github.johardi.r2rmlparser.document.Document;
 import io.github.johardi.r2rmlparser.exception.JR2RmlParserException;
 
 public class JR2RmlParser
@@ -39,13 +38,13 @@ public class JR2RmlParser
     * @return A <code>Document</code> object as the parsing result.
     * @throws JR2RmlParserException when something wrong has happened.
     */
-   public Document parse(Reader documentReader, String baseIri) throws JR2RmlParserException
+   public R2RmlDocument parse(Reader documentReader, String baseIri) throws JR2RmlParserException
    {
       try {
          R2RmlHandler handler = new R2RmlHandler();
          mTurtleParser.setRDFHandler(handler);
          mTurtleParser.parse(documentReader, baseIri);
-         return new Document(handler.getTriplesMaps(), handler.getPrefixMapper());
+         return new R2RmlDocument(handler.getTriplesMaps(), handler.getPrefixMapper());
       }
       catch (RDFHandlerException e) {
          throw new JR2RmlParserException(e);

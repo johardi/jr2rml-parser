@@ -13,18 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.johardi.r2rmlparser.document;
+package io.github.johardi.r2rmlparser;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class Document implements IDocument
+import io.github.johardi.r2rmlparser.document.IDocument;
+import io.github.johardi.r2rmlparser.document.IDocumentVisitor;
+import io.github.johardi.r2rmlparser.document.TriplesMap;
+
+public class R2RmlDocument implements IDocument
 {
    private List<TriplesMap> mTriplesMaps;
    private Map<String, String> mPrefixMapper;
 
-   public Document(List<TriplesMap> triplesMaps, Map<String, String> prefixMapper)
+   public R2RmlDocument(List<TriplesMap> triplesMaps, Map<String, String> prefixMapper)
    {
       mTriplesMaps = triplesMaps;
       mPrefixMapper = prefixMapper;

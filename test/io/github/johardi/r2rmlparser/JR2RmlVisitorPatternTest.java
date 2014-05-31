@@ -24,7 +24,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import io.github.johardi.r2rmlparser.document.Document;
 import io.github.johardi.r2rmlparser.exception.JR2RmlParserException;
 
 public class JR2RmlVisitorPatternTest
@@ -42,7 +41,7 @@ public class JR2RmlVisitorPatternTest
    {
       String filePath = "res/example.ttl";
       
-      Document document = mParser.parse(getReader(filePath), "http://example.com/ns");
+      R2RmlDocument document = mParser.parse(getReader(filePath), "http://example.com/ns");
       R2RmlDocumentHandler documentHandler = new R2RmlDocumentHandler();
       document.accept(documentHandler);
       

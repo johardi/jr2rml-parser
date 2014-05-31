@@ -26,7 +26,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import io.github.johardi.r2rmlparser.document.Document;
 import io.github.johardi.r2rmlparser.document.ObjectMap;
 import io.github.johardi.r2rmlparser.document.PredicateObjectMap;
 import io.github.johardi.r2rmlparser.document.TriplesMap;
@@ -47,7 +46,7 @@ public class JR2RmlParserTest
    {
       String filePath = "res/example.ttl";
       
-      Document document = mParser.parse(getReader(filePath), "http://example.com/ns");
+      R2RmlDocument document = mParser.parse(getReader(filePath), "http://example.com/ns");
       List<TriplesMap> mappingList = document.getTriplesMaps();
       
       assertEquals(3, mappingList.size());

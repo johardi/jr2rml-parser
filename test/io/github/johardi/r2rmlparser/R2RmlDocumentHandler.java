@@ -18,7 +18,6 @@ package io.github.johardi.r2rmlparser;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.johardi.r2rmlparser.document.Document;
 import io.github.johardi.r2rmlparser.document.IDocumentVisitor;
 import io.github.johardi.r2rmlparser.document.IGraphVisitor;
 import io.github.johardi.r2rmlparser.document.IMappingVisitor;
@@ -41,7 +40,7 @@ public class R2RmlDocumentHandler implements IDocumentVisitor, IGraphVisitor, IM
    }
 
    @Override
-   public void visit(Document document)
+   public void visit(R2RmlDocument document)
    {
       for (TriplesMap triplesMap : document.getTriplesMaps()) {
          triplesMap.accept(this);
