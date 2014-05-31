@@ -8,7 +8,99 @@ Feature
 
 Example
 -------
-//TBA//
+This example shows you how to utilize the visitor pattern. The handler below will collect string templates specified by `rr:template` attribute in a R2RML document.
+
+```java
+public class R2RmlDocumentHandler implements IDocumentVisitor, IGraphVisitor, IMappingVisitor
+{
+   private List<String> mTemplateStrings = new ArrayList<String>();
+
+   public List<String> getTemplateStrings()
+   {
+      return mTemplateStrings;
+   }
+
+   @Override
+   public void visit(Document document)
+   {
+      for (TriplesMap triplesMap : document.getTriplesMaps()) {
+         triplesMap.accept(this);
+      }
+   }
+
+   @Override
+   public void visit(TriplesMap triplesMap)
+   {
+      triplesMap.getSubjectMap().accept(this);
+      for (PredicateObjectMap pom : triplesMap.getPredicateObjectMaps()) {
+         pom.accept(this);
+      }
+   }
+
+   @Override
+   public void visit(LogicalTable arg)
+   {
+      // NO-OP
+   }
+
+   @Override
+   public void visit(SubjectMap arg)
+   {
+      switch (arg.getType()) {
+         case TermMap.TEMPLATE_VALUE:
+            mTemplateStrings.add(arg.getValue()); break;
+         case TermMap.COLUMN_VALUE:
+         case TermMap.CONSTANT_VALUE:
+            // NO-OP
+      }
+   }
+
+   @Override
+   public void visit(PredicateObjectMap arg)
+   {
+      arg.getObjectMap().accept(this);
+   }
+
+   @Override
+   public void visit(PredicateMap arg)
+   {
+      // NO-OP
+   }
+
+   @Override
+   public void visit(ObjectMap arg)
+   {
+      switch (arg.getType()) {
+         case TermMap.TEMPLATE_VALUE:
+            mTemplateStrings.add(arg.getValue()); break;
+         case TermMap.COLUMN_VALUE:
+         case TermMap.CONSTANT_VALUE:
+            // NO-OP
+      }
+   }
+
+   @Override
+   public void visit(RefObjectMap arg)
+   {
+      // NO-OP
+   }
+```
+
+Next the client code below will use the handler to print the collected template strings to stdout.
+
+```java
+String filePath = "res/example.ttl";
+
+JR2RmlParser parser = new JR2RmlParse();   
+Document document = parser.parse(getReader(filePath), "http://example.com/ns");
+R2RmlDocumentHandler documentHandler = new R2RmlDocumentHandler();
+document.accept(documentHandler);
+   
+List<String> templateStrings = documentHandler.getTemplateStrings();
+for (String template : templateStrings) {
+   System.out.println(template);
+}
+```
 
 License
 -------
