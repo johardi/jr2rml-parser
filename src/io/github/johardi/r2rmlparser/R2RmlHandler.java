@@ -2,8 +2,10 @@ package io.github.johardi.r2rmlparser;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.openrdf.model.Statement;
@@ -29,11 +31,18 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
    private Set<String> mTriplesMapIds = new HashSet<String>();
 
    private List<TriplesMap> mTriplesMaps = new ArrayList<TriplesMap>();
+   private Map<String, String> mPrefixMapper = new HashMap<String, String>();
+
    private MultiMap<String, PropertyGraph> mPropertyGraphs;
 
    public List<TriplesMap> getTriplesMaps()
    {
       return mTriplesMaps;
+   }
+
+   public Map<String, String> getPrefixMapper()
+   {
+      return mPrefixMapper;
    }
 
    @Override
