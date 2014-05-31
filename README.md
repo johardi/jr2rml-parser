@@ -1,4 +1,4 @@
-JR2RmlParser parses a [R2RML statement](http://www.w3.org/TR/r2rml/) and translate it into a hierarchical Java object. The produced object can be navigated using [Visitor Pattern](http://en.wikipedia.org/wiki/Visitor_pattern). The parser uses Sesame RDF I/O module to walk through the R2RML Turtle syntax.
+JR2RmlParser parses a [R2RML mapping document](http://www.w3.org/TR/r2rml/) and translate it into a hierarchical Java object. The produced object can be navigated using [Visitor Pattern](http://en.wikipedia.org/wiki/Visitor_pattern). The parser uses Sesame RDF I/O module to walk through the R2RML Turtle syntax.
 
 Feature
 -------
