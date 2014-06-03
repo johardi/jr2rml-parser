@@ -38,7 +38,7 @@ public class InvalidPropertyAttributeException extends JR2RmlParserRuntimeExcept
    public String getMessage()
    {
       StringBuilder sb = new StringBuilder();
-      sb.append("Invalid property attribute for");
+      sb.append("Invalid property attribute for ");
       sb.append("\"").append(mPropertyLabel).append("\"");
       if (!StringUtils.isEmpty(mExceptionDetail)) {
          sb.append(" ");
