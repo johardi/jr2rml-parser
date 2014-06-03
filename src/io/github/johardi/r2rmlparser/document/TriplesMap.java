@@ -24,7 +24,7 @@ public class TriplesMap implements IGraph
 
    private LogicalTable mLogicalTable;
    private SubjectMap mSubjectMap;
-   private List<PredicateObjectMap> mPredicateObjectMaps;
+   private List<PredicateObjectMap> mPredicateObjectMaps = new ArrayList<PredicateObjectMap>();;
 
    public void setId(String id)
    {
@@ -67,9 +67,6 @@ public class TriplesMap implements IGraph
 
    public void addPredicateObjectMap(PredicateObjectMap map)
    {
-      if (mPredicateObjectMaps == null) {
-         mPredicateObjectMaps = new ArrayList<PredicateObjectMap>();
-      }
       mPredicateObjectMaps.add(map);
    }
 
