@@ -89,7 +89,7 @@ public class R2RmlDocumentHandler implements IDocumentVisitor, IGraphVisitor, IM
 Next the client code below will use the handler to print the collected template strings to stdout.
 ```java
 JR2RmlParser parser = new JR2RmlParse();   
-Document document = parser.parse(getReader("example.ttl"), "http://example.com/ns");
+R2RmlDocument document = parser.parse(getReader("example.ttl"), "http://example.com/ns");
 R2RmlDocumentHandler documentHandler = new R2RmlDocumentHandler();
 document.accept(documentHandler);
    
