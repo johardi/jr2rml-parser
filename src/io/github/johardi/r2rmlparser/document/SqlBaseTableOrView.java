@@ -35,6 +35,6 @@ public class SqlBaseTableOrView implements ITableView
    @Override
    public String getSqlQuery()
    {
-      return String.format("SELECT * FROM \"%s\"", mTableOrViewName);
+      return String.format("SELECT * FROM %s", mTableOrViewName);
    }
 }
