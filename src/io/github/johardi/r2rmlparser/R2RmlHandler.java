@@ -287,6 +287,9 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
       else if (predicateName.equals(R2RmlVocabulary.LANGUAGE)) {
          mPropertyGraphs.put(subjectId, new PropertyGraph(K_LANGUAGE, "rr:language", graph));
       }
+      else if (predicateName.equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")) {
+         // NO-OP: ignore rdf:type
+      }
       else {
          throw new RDFHandlerException(new UnsupportedPropertyException(predicateName));
       }
