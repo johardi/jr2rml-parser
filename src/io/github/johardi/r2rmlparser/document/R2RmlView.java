@@ -18,6 +18,7 @@ package io.github.johardi.r2rmlparser.document;
 public class R2RmlView implements ITableView
 {
    private String mSqlString;
+   private String mSqlVersion;
 
    public void setSqlString(String sqlString)
    {
@@ -31,5 +32,15 @@ public class R2RmlView implements ITableView
    public String getSqlQuery()
    {
       return mSqlString;
+   }
+
+   public void setSqlVersion(String version)
+   {
+      mSqlVersion = version;
+   }
+
+   public String getSqlVersion()
+   {
+      return mSqlVersion;
    }
 }

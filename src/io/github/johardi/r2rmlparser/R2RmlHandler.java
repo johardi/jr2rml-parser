@@ -104,21 +104,43 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
       for (PropertyGraph property : properties) {
          switch (property.kind()) {
             case K_TABLE_NAME:
-               SqlBaseTableOrView table = new SqlBaseTableOrView();
-               table.setBaseTable(getObject(property.graph()));
-               logicalTable.setTableView(table);
+               SqlBaseTableOrView baseTable = getBaseTableOrView(logicalTable);
+               baseTable.setBaseTable(getObject(property.graph()));
                break;
             case K_SQL_QUERY:
-               R2RmlView sqlQuery = new R2RmlView();
+               R2RmlView tableView1 = getR2RmlView(logicalTable);
                String sql = getObject(property.graph());
-               sqlQuery.setSqlString(sql.replaceAll("\\s+|\\n+", " ").trim()); // replace any ws and newlines to space
-               logicalTable.setTableView(sqlQuery);
+               tableView1.setSqlString(sql.replaceAll("\\s+|\\n+", " ").trim()); // replace any ws and newlines to space
+               break;
+            case K_SQL_VERSION:
+               R2RmlView tableView2 = getR2RmlView(logicalTable);
+               tableView2.setSqlVersion(getObject(property.graph()));
                break;
             default:
                throw invalidPropertyAttributeException(property, "rr:logicalTable", triplesMap.getId());
          }
       }
       triplesMap.setLogicalTable(logicalTable);
+   }
+
+   private SqlBaseTableOrView getBaseTableOrView(LogicalTable logicalTable)
+   {
+      SqlBaseTableOrView baseTable = (SqlBaseTableOrView) logicalTable.getTableView();
+      if (baseTable == null) {
+         baseTable = new SqlBaseTableOrView();
+         logicalTable.setTableView(baseTable);
+      }
+      return baseTable;
+   }
+
+   private R2RmlView getR2RmlView(LogicalTable logicalTable)
+   {
+      R2RmlView tableView = (R2RmlView) logicalTable.getTableView();
+      if (tableView == null) {
+         tableView = new R2RmlView();
+         logicalTable.setTableView(tableView);
+      }
+      return tableView;
    }
 
    private void subjectMap(TriplesMap triplesMap, Statement graph)
@@ -277,6 +299,9 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
       }
       else if (predicateName.equals(R2RmlVocabulary.SQL_QUERY)) {
          mPropertyGraphs.put(subjectId, new PropertyGraph(K_SQL_QUERY, "rr:sqlQuery", graph));
+      }
+      else if (predicateName.equals(R2RmlVocabulary.SQL_VERSION)) {
+         mPropertyGraphs.put(subjectId, new PropertyGraph(K_SQL_VERSION, "rr:sqlVersion", graph));
       }
       else if (predicateName.equals(R2RmlVocabulary.CLASS)) {
          mPropertyGraphs.put(subjectId, new PropertyGraph(K_CLASS, "rr:class", graph));

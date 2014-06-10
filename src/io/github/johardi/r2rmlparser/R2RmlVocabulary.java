@@ -57,4 +57,23 @@ public final class R2RmlVocabulary
    public static final String IRI = Namespaces.RR + "IRI";
    public static final String BLANK_NODE = Namespaces.RR + "BlankNode";
    public static final String LITERAL = Namespaces.RR + "Literal";
+
+   /*
+    * R2RML SQL Version IRIs. Source:
+    * http://www.w3.org/2001/sw/wiki/RDB2RDF/SQL_Version_IRIs
+    */
+   public static final String SQL2008 = Namespaces.RR + "SQL2008";
+   public static final String ORACLE = Namespaces.RR + "Oracle";
+   public static final String MYSQL = Namespaces.RR + "MySQL";
+   public static final String MSSQLSERVER = Namespaces.RR + "MSSQLServer";
+   public static final String HSQLDB = Namespaces.RR + "HSQLDB";
+   public static final String POSTGRESQL = Namespaces.RR + "PostgreSQL";
+   public static final String DB2 = Namespaces.RR + "DB2";
+   public static final String INFORMIX = Namespaces.RR + "Informix";
+   public static final String INGRES = Namespaces.RR + "Ingres";
+   public static final String PROGRESS = Namespaces.RR + "Progress";
+   public static final String SYBASE_ASE = Namespaces.RR + "SybaseASE";
+   public static final String SYBASE_SQLANYWHERE = Namespaces.RR + "SybaseSQLAnywhere";
+   public static final String VIRTUOSO = Namespaces.RR + "Virtuoso";
+   public static final String FIREBIRD = Namespaces.RR + "Firebird";
 }
