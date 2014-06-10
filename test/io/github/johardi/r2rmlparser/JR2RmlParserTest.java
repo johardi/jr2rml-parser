@@ -28,7 +28,7 @@ import org.junit.Test;
 
 import io.github.johardi.r2rmlparser.document.ObjectMap;
 import io.github.johardi.r2rmlparser.document.PredicateObjectMap;
-import io.github.johardi.r2rmlparser.document.TermMap.TermType;
+import io.github.johardi.r2rmlparser.document.R2RmlView;
 import io.github.johardi.r2rmlparser.document.TriplesMap;
 import io.github.johardi.r2rmlparser.exception.JR2RmlParserException;
 
@@ -60,15 +60,15 @@ public class JR2RmlParserTest
       checkResult(triplesMap1.getSubjectMap().getClassIri(), "http://example.com/ns#Employee");
       checkResult(triplesMap1.getSubjectMap().getType(), 3);
       checkResult(triplesMap1.getSubjectMap().getValue(), "http://data.example.com/employee/{EMPNO}");
-      checkResult(triplesMap1.getSubjectMap().getTermType(), TermType.IRI);
+      checkResult(triplesMap1.getSubjectMap().getTermType(), R2RmlVocabulary.IRI);
       
       checkResult(triplesMap1.getPredicateObjectMaps().size(), 1);
       checkResult(triplesMap1.getPredicateObjectMaps().get(0).getPredicateMap().getType(), 1);
       checkResult(triplesMap1.getPredicateObjectMaps().get(0).getPredicateMap().getValue(), "http://example.com/ns#name");
-      checkResult(triplesMap1.getPredicateObjectMaps().get(0).getPredicateMap().getTermType(), TermType.IRI);
+      checkResult(triplesMap1.getPredicateObjectMaps().get(0).getPredicateMap().getTermType(), R2RmlVocabulary.IRI);
       checkResult(((ObjectMap) triplesMap1.getPredicateObjectMaps().get(0).getObjectMap()).getType(), 2);
       checkResult(((ObjectMap) triplesMap1.getPredicateObjectMaps().get(0).getObjectMap()).getValue(), "ENAME");
-      checkResult(((ObjectMap) triplesMap1.getPredicateObjectMaps().get(0).getObjectMap()).getTermType(), TermType.LITERAL);
+      checkResult(((ObjectMap) triplesMap1.getPredicateObjectMaps().get(0).getObjectMap()).getTermType(), R2RmlVocabulary.LITERAL);
       
       /*
        * Testing <#TriplesMap2>
@@ -78,22 +78,23 @@ public class JR2RmlParserTest
       checkResult(triplesMap2.getSubjectMap().getClassIri(), "http://example.com/ns#Employee");
       checkResult(triplesMap2.getSubjectMap().getType(), 3);
       checkResult(triplesMap2.getSubjectMap().getValue(), "http://data.example.com/employee/{EMPNO}");
-      checkResult(triplesMap2.getSubjectMap().getTermType(), TermType.BLANK_NODE);
+      checkResult(triplesMap2.getSubjectMap().getTermType(), R2RmlVocabulary.BLANK_NODE);
       
       checkResult(triplesMap2.getPredicateObjectMaps().size(), 1);
       checkResult(triplesMap2.getPredicateObjectMaps().get(0).getPredicateMap().getType(), 1);
       checkResult(triplesMap2.getPredicateObjectMaps().get(0).getPredicateMap().getValue(), "http://example.com/ns#fullName");
-      checkResult(triplesMap2.getPredicateObjectMaps().get(0).getPredicateMap().getTermType(), TermType.IRI);
+      checkResult(triplesMap2.getPredicateObjectMaps().get(0).getPredicateMap().getTermType(), R2RmlVocabulary.IRI);
       checkResult(((ObjectMap) triplesMap2.getPredicateObjectMaps().get(0).getObjectMap()).getType(), 3);
       checkResult(((ObjectMap) triplesMap2.getPredicateObjectMaps().get(0).getObjectMap()).getValue(), "{ENAME} {LNAME}");
-      checkResult(((ObjectMap) triplesMap2.getPredicateObjectMaps().get(0).getObjectMap()).getTermType(), TermType.LITERAL);
+      checkResult(((ObjectMap) triplesMap2.getPredicateObjectMaps().get(0).getObjectMap()).getTermType(), R2RmlVocabulary.LITERAL);
       
       /*
        * Testing <#TriplesMap3>
        */
       TriplesMap triplesMap3 = mappingList.get(2);
-      checkResult(triplesMap3.getLogicalTable().getTableView().getSqlQuery(), 
+      checkResult(triplesMap3.getLogicalTable().getTableView().getSqlQuery(),
             "select ('Department' || DEPTNO) AS DEPTID, DEPTNO, DNAME, LOC from SCOTT.DEPT");
+      checkResult(((R2RmlView) triplesMap3.getLogicalTable().getTableView()).getSqlVersion(), R2RmlVocabulary.MYSQL);
       checkResult(triplesMap3.getSubjectMap().getClassIri(), null);
       checkResult(triplesMap3.getSubjectMap().getType(), 3);
       checkResult(triplesMap3.getSubjectMap().getValue(), "http://data.example.com/employee/{EMPNO}");
@@ -110,6 +111,7 @@ public class JR2RmlParserTest
       TriplesMap triplesMap4 = mappingList.get(3);
       checkResult(triplesMap4.getLogicalTable().getTableView().getSqlQuery(), 
             "select DEPTNO, DNAME, LOC, (select count(*) from EMP where EMP.DEPTNO=DEPT.DEPTNO) as STAFF, DESC from DEPT");
+      checkResult(((R2RmlView) triplesMap4.getLogicalTable().getTableView()).getSqlVersion(), null);
       checkResult(triplesMap4.getSubjectMap().getClassIri(), "http://example.com/ns#Department");
       checkResult(triplesMap4.getSubjectMap().getType(), 3);
       checkResult(triplesMap4.getSubjectMap().getValue(), "http://data.example.com/department/{DEPTNO}");

@@ -32,7 +32,8 @@
              DNAME,
              LOC
         from SCOTT.DEPT
-        """ ];
+        """;
+        rr:sqlVersion rr:MySQL ];
     rr:subjectMap [
         rr:template "http://data.example.com/employee/{EMPNO}";
     ];
