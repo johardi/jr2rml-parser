@@ -13,7 +13,19 @@
         rr:objectMap [ rr:column "ENAME" ];
     ].
 
-<#TriplesMap2>
+ <#TriplesMap2>
+     rr:logicalTable [ rr:tableName "EMP" ];
+     rr:subjectMap [
+         rr:template "http://data.example.com/employee/{EMPNO}";
+         rr:class ex:Employee;
+         rr:termType rr:BlankNode
+     ];
+     rr:predicateObjectMap [
+         rr:predicate ex:fullName;
+         rr:objectMap [ rr:template "{ENAME} {LNAME}"; rr:termType rr:Literal ];
+     ].
+     
+<#TriplesMap3>
     rr:logicalTable [ rr:sqlQuery """
         select ('Department' || DEPTNO) AS DEPTID,
              DEPTNO,
@@ -29,7 +41,7 @@
         rr:objectMap [ rr:template "http://data.example.com/roles/{ROLE}" ];
     ].
 
-<#TriplesMap3>
+<#TriplesMap4>
     rr:logicalTable [ rr:sqlQuery """
         select DEPTNO,
             DNAME,
