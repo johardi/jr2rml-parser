@@ -18,6 +18,36 @@ package io.github.johardi.r2rmlparser.document;
 public class ObjectMap extends TermMap implements IObjectMap
 {
    @Override
+   /**
+    * If the term map does not have a rr:termType property, then its term type is:
+    * <ol>
+    * <li>rr:Literal, if it is an object map and at least one of the following conditions is true:
+    *    <ul>
+    *    <li>It is a column-based term map.</li>
+    *    <li>It has a rr:language property (and thus a specified language tag).</li>
+    *    <li>It has a rr:datatype property (and thus a specified datatype).</li>
+    *    </ul>
+    * </li>
+    * <li>rr:IRI, otherwise.</li>
+    * </ol>
+    */
+   protected void decideDefaultTermType()
+   {
+      if (getType() == COLUMN_VALUE) {
+         setTermType(TermType.LITERAL);
+      }
+      else if (hasLanguageTag()) {
+         setTermType(TermType.LITERAL);
+      }
+      else if (hasDatatype()) {
+         setTermType(TermType.LITERAL);
+      }
+      else {
+         setTermType(TermType.IRI);
+      }
+   }
+
+   @Override
    public void accept(IMappingVisitor visitor)
    {
       visitor.visit(this);

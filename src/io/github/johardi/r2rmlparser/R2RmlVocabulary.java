@@ -18,11 +18,13 @@ package io.github.johardi.r2rmlparser;
 import io.github.johardi.r2rmlparser.util.Namespaces;
 
 /**
- * A vocabulary list that represents R2RML properties.
- * Source: {@link http://www.w3.org/TR/r2rml/#property-index}
+ * This class contains R2RML vocabulary.
  */
 public final class R2RmlVocabulary
 {
+   /*
+    *  R2RML property list. Source: {@link http://www.w3.org/TR/r2rml/#property-index}
+    */
    public static final String CHILD = Namespaces.RR + "child";
    public static final String CLASS = Namespaces.RR + "class";
    public static final String COLUMN = Namespaces.RR + "column";
@@ -48,4 +50,11 @@ public final class R2RmlVocabulary
    public static final String TABLE_NAME = Namespaces.RR + "tableName";
    public static final String TEMPLATE = Namespaces.RR + "template";
    public static final String TERM_TYPE = Namespaces.RR + "termType";
+
+   /*
+    *  R2RML term types.
+    */
+   public static final String IRI = Namespaces.RR + "IRI";
+   public static final String BLANK_NODE = Namespaces.RR + "BlankNode";
+   public static final String LITERAL = Namespaces.RR + "Literal";
 }

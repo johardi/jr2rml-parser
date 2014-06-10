@@ -18,6 +18,12 @@ package io.github.johardi.r2rmlparser.document;
 public class PredicateMap extends TermMap implements IMappingBody
 {
    @Override
+   protected void decideDefaultTermType()
+   {
+      setTermType(TermType.IRI);
+   }
+
+   @Override
    public void accept(IMappingVisitor visitor)
    {
       visitor.visit(this);

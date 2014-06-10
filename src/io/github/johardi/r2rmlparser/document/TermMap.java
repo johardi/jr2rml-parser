@@ -15,6 +15,8 @@
  */
 package io.github.johardi.r2rmlparser.document;
 
+import io.github.johardi.r2rmlparser.util.StringUtils;
+
 public abstract class TermMap
 {
    /**
@@ -32,7 +34,13 @@ public abstract class TermMap
     */
    public final static int TEMPLATE_VALUE = 3;
 
+   /**
+    * List of R2RML term types
+    */
+   public enum TermType { IRI, BLANK_NODE, LITERAL };
+
    private int mType;
+   private TermType mTermType;
 
    private String mValue;
    private String mDatatype;
@@ -41,7 +49,12 @@ public abstract class TermMap
    public void setType(int type)
    {
       mType = type;
+      if (mTermType == null) {
+         decideDefaultTermType();
+      }
    }
+
+   protected abstract void decideDefaultTermType();
 
    /**
     * Returns one of the following types below. The type specifies the kind of
@@ -57,6 +70,16 @@ public abstract class TermMap
       return mType;
    }
 
+   public void setTermType(TermType type)
+   {
+      mTermType = type;
+   }
+
+   public TermType getTermType()
+   {
+      return mTermType;
+   }
+
    public void setDatatype(String datatype)
    {
       mDatatype = datatype;
@@ -70,6 +93,15 @@ public abstract class TermMap
       return mDatatype;
    }
 
+   /**
+    * Returns <code>true</code> if the map has specified explicitly the data
+    * type, or <code>false</code> otherwise.
+    */
+   public boolean hasDatatype()
+   {
+      return (StringUtils.isEmpty(mDatatype)) ? false : true;
+   }
+
    public void setLanguage(String value)
    {
       mLanguage = value;
@@ -81,6 +113,15 @@ public abstract class TermMap
    public String getLanguage()
    {
       return mLanguage;
+   }
+
+   /**
+    * Returns <code>true</code> if the map has language tag specified, or
+    * <code>false</code> otherwise.
+    */
+   public boolean hasLanguageTag()
+   {
+      return (StringUtils.isEmpty(mLanguage)) ? false : true;
    }
 
    public void setValue(String value)

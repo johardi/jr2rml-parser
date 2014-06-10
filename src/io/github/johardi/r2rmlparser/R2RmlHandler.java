@@ -37,6 +37,7 @@ import io.github.johardi.r2rmlparser.document.SqlBaseTableOrView;
 import io.github.johardi.r2rmlparser.document.SubjectMap;
 import io.github.johardi.r2rmlparser.document.TermMap;
 import io.github.johardi.r2rmlparser.document.TriplesMap;
+import io.github.johardi.r2rmlparser.document.TermMap.TermType;
 import io.github.johardi.r2rmlparser.exception.InvalidPropertyAttributeException;
 import io.github.johardi.r2rmlparser.exception.UnsupportedPropertyException;
 import io.github.johardi.r2rmlparser.util.MultiMap;
@@ -135,6 +136,9 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
                subjectMap.setType(TermMap.TEMPLATE_VALUE);
                subjectMap.setValue(getObject(property.graph()));
                break;
+            case K_TERM_TYPE:
+               changeTermType(subjectMap, getObject(property.graph()));
+               break;
             default:
                throw invalidPropertyAttributeException(property, "rr:subjectMap", triplesMap.getId());
          }
@@ -179,6 +183,9 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
                predicateMap.setType(TermMap.CONSTANT_VALUE);
                predicateMap.setValue(getObject(property.graph()));
                break;
+            case K_TERM_TYPE:
+               changeTermType(predicateMap, getObject(property.graph()));
+               break;
             default:
                throw invalidPropertyAttributeException(property, "rr:predicateMap", triplesMap.getId());
          }
@@ -219,6 +226,9 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
             case K_LANGUAGE:
                objectMap.setLanguage(getObject(property.graph()));
                break;
+            case K_TERM_TYPE:
+               changeTermType(objectMap, getObject(property.graph()));
+               break;
             default:
                throw invalidPropertyAttributeException(property, "rr:objectMap", triplesMap.getId());
          }
@@ -232,6 +242,19 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
       objectMap.setType(TermMap.CONSTANT_VALUE);
       objectMap.setValue(constantValue);
       predicateObjectMap.setObjectMap(objectMap);
+   }
+
+   private void changeTermType(TermMap termMap, String termType)
+   {
+      if (termType.equals(R2RmlVocabulary.IRI)) {
+         termMap.setTermType(TermType.IRI);
+      }
+      else if (termType.equals(R2RmlVocabulary.BLANK_NODE)) {
+         termMap.setTermType(TermType.BLANK_NODE);
+      }
+      else if (termType.equals(R2RmlVocabulary.LITERAL)) {
+         termMap.setTermType(TermType.LITERAL);
+      }
    }
 
    @Override
@@ -286,6 +309,9 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
       }
       else if (predicateName.equals(R2RmlVocabulary.LANGUAGE)) {
          mPropertyGraphs.put(subjectId, new PropertyGraph(K_LANGUAGE, "rr:language", graph));
+      }
+      else if (predicateName.equals(R2RmlVocabulary.TERM_TYPE)) {
+         mPropertyGraphs.put(subjectId, new PropertyGraph(K_TERM_TYPE, "rr:termType", graph));
       }
       else if (predicateName.equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")) {
          // NO-OP: ignore rdf:type
