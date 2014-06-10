@@ -15,6 +15,8 @@
  */
 package io.github.johardi.r2rmlparser.document;
 
+import io.github.johardi.r2rmlparser.R2RmlVocabulary;
+
 public class SubjectMap extends TermMap implements IMappingBody
 {
    private String mClassIri;
@@ -35,7 +37,7 @@ public class SubjectMap extends TermMap implements IMappingBody
    @Override
    protected void decideDefaultTermType()
    {
-      setTermType(TermType.IRI);
+      setTermType(R2RmlVocabulary.IRI);
    }
 
    @Override

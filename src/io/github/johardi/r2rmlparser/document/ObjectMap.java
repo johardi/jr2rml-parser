@@ -15,6 +15,8 @@
  */
 package io.github.johardi.r2rmlparser.document;
 
+import io.github.johardi.r2rmlparser.R2RmlVocabulary;
+
 public class ObjectMap extends TermMap implements IObjectMap
 {
    @Override
@@ -34,16 +36,16 @@ public class ObjectMap extends TermMap implements IObjectMap
    protected void decideDefaultTermType()
    {
       if (getType() == COLUMN_VALUE) {
-         setTermType(TermType.LITERAL);
+         setTermType(R2RmlVocabulary.LITERAL);
       }
       else if (hasLanguageTag()) {
-         setTermType(TermType.LITERAL);
+         setTermType(R2RmlVocabulary.LITERAL);
       }
       else if (hasDatatype()) {
-         setTermType(TermType.LITERAL);
+         setTermType(R2RmlVocabulary.LITERAL);
       }
       else {
-         setTermType(TermType.IRI);
+         setTermType(R2RmlVocabulary.IRI);
       }
    }
 

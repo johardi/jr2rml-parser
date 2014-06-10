@@ -37,7 +37,6 @@ import io.github.johardi.r2rmlparser.document.SqlBaseTableOrView;
 import io.github.johardi.r2rmlparser.document.SubjectMap;
 import io.github.johardi.r2rmlparser.document.TermMap;
 import io.github.johardi.r2rmlparser.document.TriplesMap;
-import io.github.johardi.r2rmlparser.document.TermMap.TermType;
 import io.github.johardi.r2rmlparser.exception.InvalidPropertyAttributeException;
 import io.github.johardi.r2rmlparser.exception.UnsupportedPropertyException;
 import io.github.johardi.r2rmlparser.util.MultiMap;
@@ -137,7 +136,7 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
                subjectMap.setValue(getObject(property.graph()));
                break;
             case K_TERM_TYPE:
-               changeTermType(subjectMap, getObject(property.graph()));
+               subjectMap.setTermType(getObject(property.graph()));
                break;
             default:
                throw invalidPropertyAttributeException(property, "rr:subjectMap", triplesMap.getId());
@@ -184,7 +183,7 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
                predicateMap.setValue(getObject(property.graph()));
                break;
             case K_TERM_TYPE:
-               changeTermType(predicateMap, getObject(property.graph()));
+               predicateMap.setTermType(getObject(property.graph()));
                break;
             default:
                throw invalidPropertyAttributeException(property, "rr:predicateMap", triplesMap.getId());
@@ -227,7 +226,7 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
                objectMap.setLanguage(getObject(property.graph()));
                break;
             case K_TERM_TYPE:
-               changeTermType(objectMap, getObject(property.graph()));
+               objectMap.setTermType(getObject(property.graph()));
                break;
             default:
                throw invalidPropertyAttributeException(property, "rr:objectMap", triplesMap.getId());
@@ -242,19 +241,6 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
       objectMap.setType(TermMap.CONSTANT_VALUE);
       objectMap.setValue(constantValue);
       predicateObjectMap.setObjectMap(objectMap);
-   }
-
-   private void changeTermType(TermMap termMap, String termType)
-   {
-      if (termType.equals(R2RmlVocabulary.IRI)) {
-         termMap.setTermType(TermType.IRI);
-      }
-      else if (termType.equals(R2RmlVocabulary.BLANK_NODE)) {
-         termMap.setTermType(TermType.BLANK_NODE);
-      }
-      else if (termType.equals(R2RmlVocabulary.LITERAL)) {
-         termMap.setTermType(TermType.LITERAL);
-      }
    }
 
    @Override

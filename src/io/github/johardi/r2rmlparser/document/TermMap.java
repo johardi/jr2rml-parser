@@ -34,13 +34,8 @@ public abstract class TermMap
     */
    public final static int TEMPLATE_VALUE = 3;
 
-   /**
-    * List of R2RML term types
-    */
-   public enum TermType { IRI, BLANK_NODE, LITERAL };
-
    private int mType;
-   private TermType mTermType;
+   private String mTermType;
 
    private String mValue;
    private String mDatatype;
@@ -70,12 +65,12 @@ public abstract class TermMap
       return mType;
    }
 
-   public void setTermType(TermType type)
+   public void setTermType(String type)
    {
       mTermType = type;
    }
 
-   public TermType getTermType()
+   public String getTermType()
    {
       return mTermType;
    }
