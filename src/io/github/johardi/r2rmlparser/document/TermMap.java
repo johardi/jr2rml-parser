@@ -52,12 +52,18 @@ public abstract class TermMap
    protected abstract void decideDefaultTermType();
 
    /**
-    * Returns one of the following types below. The type specifies the kind of
-    * value returns by <code>getValue()</code> method.
+    * Returns one of the following types below. The type specifies the
+    * representative meaning of the value returned by <code>getValue()</code>
+    * method. For example, if this method returns <code>COLUMN_VALUE</code> then
+    * the string from <code>getValue()</code> indicates a column name in the
+    * logical table.
     * <ul>
-    * <li>{@link CONSTANT_VALUE} - A constant-valued term map, specified by <code>rr:constant</code> property</li>
-    * <li>{@link COLUMN_VALUE} - A column-valued term map, specified by <code>rr:ccolumn</code> property</li>
-    * <li>{@link TEMPLATE_VALUE} - A template-valued term map, specified by <code>rr:template</code> property</li>
+    * <li>{@link CONSTANT_VALUE} - A constant-valued term map, specified by
+    *     <code>rr:constant</code> property</li>
+    * <li>{@link COLUMN_VALUE} - A column-valued term map, specified by
+    *     <code>rr:ccolumn</code> property</li>
+    * <li>{@link TEMPLATE_VALUE} - A template-valued term map, specified by
+    *     <code>rr:template</code> property</li>
     * </ul>
     */
    public int getType()
@@ -70,6 +76,17 @@ public abstract class TermMap
       mTermType = type;
    }
 
+   /**
+    * Returns one of the following URI string constants below.
+    * <ul>
+    * <li><code>http://www.w3.org/ns/r2rml#IRI</code>, which represents term
+    *     type<code>rr:IRI</code></li>
+    * <li><code>http://www.w3.org/ns/r2rml#Literal</code>, which represents term
+    *     type<code>rr:Literal</code></li>
+    * <li><code>http://www.w3.org/ns/r2rml#BlankNode</code>, which represents
+    *     term type<code>rr:BlankNode</code></li>
+    * </ul>
+    */
    public String getTermType()
    {
       return mTermType;
