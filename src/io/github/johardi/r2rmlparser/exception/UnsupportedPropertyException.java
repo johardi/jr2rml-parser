@@ -34,6 +34,6 @@ public class UnsupportedPropertyException extends JR2RmlParserException
    @Override
    public String getMessage()
    {
-      return String.format("R2RML %s property is not supported yet", mPropertyName);
+      return String.format("The %s property is not supported yet by JR2RML Parser", mPropertyName);
    }
 }
