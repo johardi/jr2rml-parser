@@ -19,21 +19,8 @@ public class UnsupportedPropertyException extends JR2RmlParserException
 {
    private static final long serialVersionUID = 1681949L;
 
-   private String mPropertyName;
-
    public UnsupportedPropertyException(String propertyName)
    {
-      mPropertyName = propertyName;
-   }
-
-   public String getUnsupportedProperty()
-   {
-      return mPropertyName;
-   }
-
-   @Override
-   public String getMessage()
-   {
-      return String.format("The %s property is not supported yet by JR2RML Parser", mPropertyName);
+      super(String.format("The %s property is not supported yet by JR2RML Parser", propertyName));
    }
 }

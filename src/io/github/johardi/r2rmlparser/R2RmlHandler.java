@@ -37,7 +37,7 @@ import io.github.johardi.r2rmlparser.document.SqlBaseTableOrView;
 import io.github.johardi.r2rmlparser.document.SubjectMap;
 import io.github.johardi.r2rmlparser.document.TermMap;
 import io.github.johardi.r2rmlparser.document.TriplesMap;
-import io.github.johardi.r2rmlparser.exception.InvalidPropertyAttributeException;
+import io.github.johardi.r2rmlparser.exception.IllegalPropertyException;
 import io.github.johardi.r2rmlparser.exception.UnsupportedPropertyException;
 import io.github.johardi.r2rmlparser.util.MultiMap;
 
@@ -96,7 +96,7 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
       }
    }
 
-   private void logicalTable(TriplesMap triplesMap, Statement graph)
+   private void logicalTable(TriplesMap triplesMap, Statement graph) throws RDFHandlerException
    {
       LogicalTable logicalTable = new LogicalTable();
       String bNodeId = getObject(graph);
@@ -110,14 +110,14 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
             case K_SQL_QUERY:
                R2RmlView tableView1 = getR2RmlView(logicalTable);
                String sql = getObject(property.graph());
-               tableView1.setSqlString(sql.replaceAll("\\s+|\\n+", " ").trim()); // replace any ws and newlines to space
+               tableView1.setSqlString(sql.replaceAll("\\s+|\\n+", " ").trim()); // ws and newlines to space
                break;
             case K_SQL_VERSION:
                R2RmlView tableView2 = getR2RmlView(logicalTable);
                tableView2.setSqlVersion(getObject(property.graph()));
                break;
             default:
-               throw invalidPropertyAttributeException(property, "rr:logicalTable", triplesMap.getId());
+               throw illegalPropertyException(property, "rr:logicalTable", triplesMap.getId());
          }
       }
       triplesMap.setLogicalTable(logicalTable);
@@ -143,7 +143,7 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
       return tableView;
    }
 
-   private void subjectMap(TriplesMap triplesMap, Statement graph)
+   private void subjectMap(TriplesMap triplesMap, Statement graph) throws RDFHandlerException
    {
       SubjectMap subjectMap = new SubjectMap();
       String bNodeId = getObject(graph);
@@ -169,13 +169,13 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
                subjectMap.setTermType(getObject(property.graph()));
                break;
             default:
-               throw invalidPropertyAttributeException(property, "rr:subjectMap", triplesMap.getId());
+               throw illegalPropertyException(property, "rr:subjectMap", triplesMap.getId());
          }
       }
       triplesMap.setSubjectMap(subjectMap);
    }
 
-   private void predicateObjectMap(TriplesMap triplesMap, Statement graph)
+   private void predicateObjectMap(TriplesMap triplesMap, Statement graph) throws RDFHandlerException
    {
       PredicateObjectMap predicateObjectMap = new PredicateObjectMap();
       String bNodeId = getObject(graph);
@@ -195,13 +195,14 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
                object(predicateObjectMap, getObject(property.graph()));
                break;
             default:
-               throw invalidPropertyAttributeException(property, "rr:predicateObjectMap", triplesMap.getId());
+               throw illegalPropertyException(property, "rr:predicateObjectMap", triplesMap.getId());
          }
       }
       triplesMap.addPredicateObjectMap(predicateObjectMap);
    }
 
    private void predicateMap(PredicateObjectMap predicateObjectMap, Statement graph, TriplesMap triplesMap)
+         throws RDFHandlerException
    {
       PredicateMap predicateMap = new PredicateMap();
       String bNodeId = getObject(graph);
@@ -216,7 +217,7 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
                predicateMap.setTermType(getObject(property.graph()));
                break;
             default:
-               throw invalidPropertyAttributeException(property, "rr:predicateMap", triplesMap.getId());
+               throw illegalPropertyException(property, "rr:predicateMap", triplesMap.getId());
          }
       }
       predicateObjectMap.setPredicateMap(predicateMap);
@@ -231,6 +232,7 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
    }
 
    private void objectMap(PredicateObjectMap predicateObjectMap, Statement graph, TriplesMap triplesMap)
+         throws RDFHandlerException
    {
       ObjectMap objectMap = new ObjectMap();
       String bNodeId = getObject(graph);
@@ -259,7 +261,7 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
                objectMap.setTermType(getObject(property.graph()));
                break;
             default:
-               throw invalidPropertyAttributeException(property, "rr:objectMap", triplesMap.getId());
+               throw illegalPropertyException(property, "rr:objectMap", triplesMap.getId());
          }
       }
       predicateObjectMap.setObjectMap(objectMap);
@@ -336,14 +338,14 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
          // NO-OP: ignore rdf:type
       }
       else {
-         throw new RDFHandlerException(new UnsupportedPropertyException(predicateName));
+         throw new UnsupportedPropertyException(predicateName);
       }
    }
 
    private void findTriplesMapId(Statement graph)
    {
       if (graph.getSubject() instanceof URI) {
-         mTriplesMapIds.add(getSubject(graph)); // set will discard duplicates
+         mTriplesMapIds.add(getSubject(graph)); // using Set will discard duplicates
       }
    }
 
@@ -367,10 +369,10 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
       return graph.getObject().stringValue();
    }
 
-   private RuntimeException invalidPropertyAttributeException(PropertyGraph property, String parent, String triplesMapId)
+   private IllegalPropertyException illegalPropertyException(PropertyGraph property, String parentElement, String triplesMapId)
    {
-      InvalidPropertyAttributeException exception = new InvalidPropertyAttributeException(property.label());
-      exception.setExceptionDetail(String.format("(at %s in <%s>)", parent, shortenIfNecessary(triplesMapId)));
+      String location = String.format("(%s) <%s>)", parentElement, shortenIfNecessary(triplesMapId));
+      IllegalPropertyException exception = new IllegalPropertyException(property.label(), location);
       return exception;
    }
 
