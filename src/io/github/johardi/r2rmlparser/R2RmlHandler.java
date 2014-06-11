@@ -371,12 +371,12 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
 
    private IllegalPropertyException illegalPropertyException(PropertyGraph property, String parentElement, String triplesMapId)
    {
-      String location = String.format("(%s) <%s>)", parentElement, shortenIfNecessary(triplesMapId));
+      String location = String.format("(%s) <%s>)", parentElement, shorten(triplesMapId));
       IllegalPropertyException exception = new IllegalPropertyException(property.label(), location);
       return exception;
    }
 
-   private String shortenIfNecessary(String triplesMapId)
+   private static String shorten(String triplesMapId)
    {
       if (triplesMapId.contains("#")) {
          triplesMapId = triplesMapId.substring(triplesMapId.lastIndexOf("#") + 1);
