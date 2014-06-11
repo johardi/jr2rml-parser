@@ -153,8 +153,16 @@ public class R2RmlHandler extends RDFHandlerBase implements IR2RmlConstants
             case K_CLASS:
                subjectMap.setClassIri(getObject(property.graph()));
                break;
+            case K_COLUMN:
+               subjectMap.setType(TermMap.COLUMN_VALUE);
+               subjectMap.setValue(getObject(property.graph()));
+               break;
             case K_TEMPLATE:
                subjectMap.setType(TermMap.TEMPLATE_VALUE);
+               subjectMap.setValue(getObject(property.graph()));
+               break;
+            case K_CONSTANT:
+               subjectMap.setType(TermMap.CONSTANT_VALUE);
                subjectMap.setValue(getObject(property.graph()));
                break;
             case K_TERM_TYPE:
