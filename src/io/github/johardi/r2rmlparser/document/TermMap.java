@@ -35,20 +35,36 @@ public abstract class TermMap
    public final static int TEMPLATE_VALUE = 3;
 
    private int mType;
-   private String mTermType;
+   protected String mTermType;
 
    private String mValue;
    private String mDatatype;
    private String mLanguage;
 
+   protected boolean bUserDefinedTermType = false;
+
    public void setType(int type)
    {
       mType = type;
-      if (mTermType == null) {
+      if (!bUserDefinedTermType) { // if term map does not mention rr:termType property explicitly
          decideDefaultTermType();
       }
    }
 
+   /**
+    * If the term map does not have a rr:termType property, then its term type is:
+    * <ol>
+    * <li>rr:Literal, if it is an object map and at least one of the following conditions is true:
+    *    <ul>
+    *    <li>It is a column-based term map.</li>
+    *    <li>It has a rr:language property (and thus a specified language tag).</li>
+    *    <li>It has a rr:datatype property (and thus a specified datatype).</li>
+    *    </ul>
+    * </li>
+    * <li>rr:IRI, otherwise.</li>
+    * </ol>
+    * (Reference: http://www.w3.org/TR/r2rml/#termtype)
+    */
    protected abstract void decideDefaultTermType();
 
    /**
@@ -74,6 +90,7 @@ public abstract class TermMap
    public void setTermType(String type)
    {
       mTermType = type;
+      bUserDefinedTermType = true;
    }
 
    /**
@@ -114,9 +131,9 @@ public abstract class TermMap
       return (StringUtils.isEmpty(mDatatype)) ? false : true;
    }
 
-   public void setLanguage(String value)
+   public void setLanguage(String language)
    {
-      mLanguage = value;
+      mLanguage = language;
    }
 
    /**

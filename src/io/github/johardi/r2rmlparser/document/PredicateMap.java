@@ -22,7 +22,7 @@ public class PredicateMap extends TermMap implements IMappingBody
    @Override
    protected void decideDefaultTermType()
    {
-      setTermType(R2RmlVocabulary.IRI);
+      mTermType = R2RmlVocabulary.IRI;
    }
 
    @Override

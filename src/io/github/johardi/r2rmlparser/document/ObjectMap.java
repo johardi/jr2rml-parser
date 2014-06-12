@@ -20,32 +20,31 @@ import io.github.johardi.r2rmlparser.R2RmlVocabulary;
 public class ObjectMap extends TermMap implements IObjectMap
 {
    @Override
-   /**
-    * If the term map does not have a rr:termType property, then its term type is:
-    * <ol>
-    * <li>rr:Literal, if it is an object map and at least one of the following conditions is true:
-    *    <ul>
-    *    <li>It is a column-based term map.</li>
-    *    <li>It has a rr:language property (and thus a specified language tag).</li>
-    *    <li>It has a rr:datatype property (and thus a specified datatype).</li>
-    *    </ul>
-    * </li>
-    * <li>rr:IRI, otherwise.</li>
-    * </ol>
-    */
    protected void decideDefaultTermType()
    {
       if (getType() == COLUMN_VALUE) {
-         setTermType(R2RmlVocabulary.LITERAL);
-      }
-      else if (hasLanguageTag()) {
-         setTermType(R2RmlVocabulary.LITERAL);
-      }
-      else if (hasDatatype()) {
-         setTermType(R2RmlVocabulary.LITERAL);
+         mTermType = R2RmlVocabulary.LITERAL;
       }
       else {
-         setTermType(R2RmlVocabulary.IRI);
+         mTermType = R2RmlVocabulary.IRI;
+      }
+   }
+
+   @Override
+   public void setDatatype(String datatype)
+   {
+      super.setDatatype(datatype);
+      if (!bUserDefinedTermType) {
+         mTermType = R2RmlVocabulary.LITERAL;
+      }
+   }
+
+   @Override
+   public void setLanguage(String language)
+   {
+      super.setLanguage(language);
+      if (!bUserDefinedTermType) {
+         mTermType = R2RmlVocabulary.LITERAL;
       }
    }
 
