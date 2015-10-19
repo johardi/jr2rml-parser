@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
+import java.net.URL;
 import java.util.List;
 
 import org.junit.Before;
@@ -39,7 +40,7 @@ public class JR2RmlVisitorPatternTest
    @Test
    public void testVisitorPattern() throws JR2RmlParserException
    {
-      String filePath = "res/example.ttl";
+      String filePath = "/example.ttl";
       
       R2RmlDocument document = mParser.parse(getReader(filePath), "http://example.com/ns");
       R2RmlDocumentHandler documentHandler = new R2RmlDocumentHandler();
@@ -54,7 +55,8 @@ public class JR2RmlVisitorPatternTest
    private Reader getReader(String filePath)
    {
       try {
-         return new BufferedReader(new FileReader(filePath));
+         URL url = this.getClass().getResource(filePath);
+         return new BufferedReader(new FileReader(url.getFile()));
       }
       catch (FileNotFoundException e) {
          throw new RuntimeException("File not found: " + e.getMessage());
